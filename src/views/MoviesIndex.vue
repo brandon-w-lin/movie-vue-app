@@ -5,6 +5,7 @@
       <h2>All movies:</h2>
       <div v-for="movie in movies" :key="movie.id">
         {{ movie.title }}
+        <p><button @click="moviesShow(movie)">More Info</button></p>
       </div>
     </div>
   </div>
@@ -27,6 +28,9 @@ export default {
       axios.get("http://localhost:3000/movies.json").then((response) => {
         this.movies = response.data;
       });
+    },
+    moviesShow: function (movie) {
+      this.$router.push("/movies/" + movie.id);
     },
   },
 };
