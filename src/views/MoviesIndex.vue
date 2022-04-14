@@ -5,7 +5,7 @@
       <h2>All movies:</h2>
       <div v-for="movie in movies" :key="movie.id">
         {{ movie.title }}
-        <p><button @click="moviesShow(movie)">More Info</button></p>
+        <p><button @click="moviesShowRedirect(movie)">More Info</button></p>
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
         this.movies = response.data;
       });
     },
-    moviesShow: function (movie) {
+    moviesShowRedirect: function (movie) {
       this.$router.push("/movies/" + movie.id);
     },
   },
