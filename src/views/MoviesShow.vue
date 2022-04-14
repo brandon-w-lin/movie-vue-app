@@ -8,6 +8,7 @@
         <p>Year: {{ currentMovie.year }}</p>
         <p>Director: {{ currentMovie.director }}</p>
       </div>
+      <button @click="moviesEditRedirect()">Edit movie</button>
       <button @click="moviesIndexRedirect()">Return to all movies</button>
     </div>
   </div>
@@ -33,6 +34,9 @@ export default {
     },
     moviesIndexRedirect: function () {
       this.$router.push("/movies");
+    },
+    moviesEditRedirect: function () {
+      this.$router.push("/movies/" + this.$route.params.id + "/edit");
     },
   },
 };
