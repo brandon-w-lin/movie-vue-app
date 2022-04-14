@@ -26,7 +26,6 @@ export default {
     return {
       movies: [],
       newMovieParams: {},
-      currentMovie: {},
     };
   },
   created: function () {
@@ -46,40 +45,6 @@ export default {
       this.newMovieParams.year = null;
       this.newMovieParams.director = null;
       this.newMovieParams.plot = null;
-      this.moviesIndex();
-    },
-    movieUpdate: function () {
-      axios
-        .patch("http://localhost:3000/movies/" + this.currentMovie.id + ".json", this.currentMovie)
-        .then((response) => {
-          console.log(response.data);
-          this.moviesIndex();
-        })
-        .catch((error) => console.log(error.response));
-      document.getElementById("movie-show").close();
-    },
-    movieDelete: function () {
-      axios
-        .delete("http://localhost:3000/movies/" + this.currentMovie.id + ".json", this.currentMovie)
-        .then((response) => {
-          console.log(response.data);
-          this.moviesIndex();
-        })
-        .catch((error) => console.log(error.response));
-      document.getElementById("movie-show").close();
-    },
-    modalMovieShowOpen: function (movie) {
-      this.currentMovie = movie;
-      document.getElementById("movie-show").showModal();
-    },
-    modalMovieShowClose: function () {
-      document.getElementById("movie-show").close();
-    },
-    modalMovieCreateOpen: function () {
-      document.getElementById("movie-create").showModal();
-    },
-    modalMovieCreateClose: function () {
-      document.getElementById("movie-create").showModal();
     },
   },
 };
