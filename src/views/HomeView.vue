@@ -3,7 +3,7 @@
     <h1>Welcome to the movie page</h1>
     <!-- Create a new movie  -->
     <div>
-      <button @click="modalMovieCreate">Create a new movie</button>
+      <button @click="modalMovieCreateOpen()">Create a new movie</button>
       <dialog id="movie-create">
         <div>
           <h2>Create a new movie:</h2>
@@ -14,6 +14,7 @@
             <p><input type="text" v-model="newMovieParams.director" placeholder="Director" /></p>
           </form>
           <button v-on:click="movieCreate()">Submit</button>
+          <button v-on:click="modalMovieCreateClose()">Close</button>
         </div>
       </dialog>
     </div>
@@ -25,7 +26,7 @@
         {{ movie.title }}
 
         <!-- Show / Edit Movies  -->
-        <button v-on:click="modalMovieShow(movie)">More details</button>
+        <button v-on:click="modalMovieShowOpen(movie)">More details</button>
         <dialog id="movie-show">
           <form>
             <p><input type="text" v-model="currentMovie.title" placeholder="Title" /></p>
@@ -34,6 +35,9 @@
             <p><input type="text" v-model="currentMovie.director" placeholder="Director" /></p>
           </form>
           <button @click="movieUpdate()">Submit Changes</button>
+          <button @click="movieDelete()">Delete Movie</button>
+          <br />
+          <button @click="modalMovieShowClose()">Close</button>
         </dialog>
       </div>
     </div>
@@ -78,13 +82,29 @@ export default {
           this.moviesIndex();
         })
         .catch((error) => console.log(error.response));
+      document.getElementById("movie-show").close();
     },
-
-    modalMovieShow: function (movie) {
+    movieDelete: function () {
+      axios
+        .delete("http://localhost:3000/movies/" + this.currentMovie.id + ".json", this.currentMovie)
+        .then((response) => {
+          console.log(response.data);
+          this.moviesIndex();
+        })
+        .catch((error) => console.log(error.response));
+      document.getElementById("movie-show").close();
+    },
+    modalMovieShowOpen: function (movie) {
       this.currentMovie = movie;
       document.getElementById("movie-show").showModal();
     },
-    modalMovieCreate: function () {
+    modalMovieShowClose: function () {
+      document.getElementById("movie-show").close();
+    },
+    modalMovieCreateOpen: function () {
+      document.getElementById("movie-create").showModal();
+    },
+    modalMovieCreateClose: function () {
       document.getElementById("movie-create").showModal();
     },
   },
