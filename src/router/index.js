@@ -4,6 +4,7 @@ import MoviesIndex from "../views/MoviesIndex.vue";
 import MoviesNew from "../views/MoviesNew.vue";
 import MoviesShow from "../views/MoviesShow.vue";
 import MoviesEdit from "../views/MoviesEdit.vue";
+import SignUp from "../views/SignUp.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/movies/:id/edit",
     name: "movies-edit",
     component: MoviesEdit,
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: SignUp,
   },
   {
     path: "/about",
